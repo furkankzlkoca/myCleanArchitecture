@@ -10,4 +10,16 @@
     <ProjectReference Include="..\myCleanArchitecture.Application\myCleanArchitecture.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="Data\Configurations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+  </ItemGroup>
+
 </Project>
