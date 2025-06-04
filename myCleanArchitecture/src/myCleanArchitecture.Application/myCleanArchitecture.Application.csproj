@@ -10,4 +10,9 @@
     <ProjectReference Include="..\myCleanArchitecture.Domain\myCleanArchitecture.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Helpers\" />
+    <Folder Include="Common\FeatureModels\" />
+  </ItemGroup>
+
 </Project>
