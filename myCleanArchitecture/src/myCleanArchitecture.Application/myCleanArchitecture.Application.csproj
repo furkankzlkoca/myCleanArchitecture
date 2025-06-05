@@ -8,11 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\myCleanArchitecture.Domain\myCleanArchitecture.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Helpers\" />
-    <Folder Include="Common\FeatureModels\" />
+    <ProjectReference Include="..\myCleanArchitecture.Shared\myCleanArchitecture.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

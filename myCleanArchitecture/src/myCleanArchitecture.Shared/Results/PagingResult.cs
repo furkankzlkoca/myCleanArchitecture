@@ -1,4 +1,4 @@
-﻿namespace myCleanArchitecture.Application.Common.Results
+﻿namespace myCleanArchitecture.Shared.Results
 {
     public class PagingResult<TEntity> : Result
     {

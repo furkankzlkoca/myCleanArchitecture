@@ -1,7 +1,6 @@
-﻿
-using System.Net;
+﻿using System.Net;
 
-namespace myCleanArchitecture.Application.Common.Results
+namespace myCleanArchitecture.Shared.Results
 {
     public class Meta
     {
