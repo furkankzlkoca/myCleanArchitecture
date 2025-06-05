@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace myCleanArchitecture.Application.Common.Behaviours
+namespace myCleanArchitecture.Application.Behaviours
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
@@ -28,7 +28,7 @@ namespace myCleanArchitecture.Application.Common.Behaviours
 
                 if (failures.Count != 0)
                     //throw new ValidationException(failures);
-                    throw new FluentValidation.ValidationException(failures);
+                    throw new ValidationException(failures);
             }
             //return await next();
             return await next(cancellationToken);

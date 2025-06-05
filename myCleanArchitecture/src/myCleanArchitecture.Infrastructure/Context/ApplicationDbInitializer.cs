@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using myCleanArchitecture.Infrastructure.Identity;
 
-namespace myCleanArchitecture.Infrastructure.Data.Context
+namespace myCleanArchitecture.Infrastructure.Context
 {
     public class ApplicationDbInitializer
     {

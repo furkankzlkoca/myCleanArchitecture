@@ -3,7 +3,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using myCleanArchitecture.Application.Common.Behaviours;
+using myCleanArchitecture.Application.Behaviours;
 using System.Reflection;
 
 namespace myCleanArchitecture.Application

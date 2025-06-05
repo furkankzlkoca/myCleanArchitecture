@@ -1,4 +1,4 @@
-﻿namespace myCleanArchitecture.Application.Common.Interfaces
+﻿namespace myCleanArchitecture.Application.Interfaces
 {
     public interface IAppUser
     {

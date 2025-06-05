@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using myCleanArchitecture.Application.Common.Interfaces;
-using myCleanArchitecture.Infrastructure.Data.Context;
+using myCleanArchitecture.Infrastructure.Context;
 using myCleanArchitecture.Infrastructure.Identity;
 
 namespace myCleanArchitecture.Infrastructure

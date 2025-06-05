@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace myCleanArchitecture.Infrastructure.Data.Configurations
+namespace myCleanArchitecture.Infrastructure.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {

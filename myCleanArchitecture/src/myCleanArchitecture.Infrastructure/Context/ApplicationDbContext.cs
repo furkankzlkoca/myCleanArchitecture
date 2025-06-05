@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using myCleanArchitecture.Application.Common.Interfaces;
+using myCleanArchitecture.Application.Interfaces;
 using myCleanArchitecture.Infrastructure.Identity;
 using System.Reflection;
 
-namespace myCleanArchitecture.Infrastructure.Data.Context
+namespace myCleanArchitecture.Infrastructure.Context
 {
     public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, Guid, AppUserClaim, AppUserRole, AppUserLogin, AppRoleClaim, AppUserToken>, IApplicationDbContext
     {
