@@ -1,7 +1,4 @@
 ﻿
-
-using myCleanArchitecture.Domain.Common;
-using myCleanArchitecture.Shared.Results;
 using System.Linq.Expressions;
 
 namespace myCleanArchitecture.Application.Interfaces.Repositories.Base

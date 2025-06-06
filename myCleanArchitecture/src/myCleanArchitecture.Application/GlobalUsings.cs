@@ -5,3 +5,5 @@ global using myCleanArchitecture.Application.Interfaces.Repositories;
 global using myCleanArchitecture.Application.Interfaces.Repositories.Base;
 global using myCleanArchitecture.Shared.Results;
 global using myCleanArchitecture.Domain.Models;
+global using AutoMapper;
+global using MediatR;

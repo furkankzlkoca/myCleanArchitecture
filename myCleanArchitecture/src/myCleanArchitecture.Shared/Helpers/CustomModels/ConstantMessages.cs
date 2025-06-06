@@ -9,5 +9,8 @@ namespace myCleanArchitecture.Shared.Helpers.CustomModels
         public const string RecordDeleted = "Kayıt silindi.";
         public const string RecordNotFound = "Kayıt bulunamadı.";
         public const string RecordAlreadyExists = "Bu isimde kayıt zaten var.";
+
+        public const string NameIsRequired= "Ad alanı zorunludur.";
+        public const string NotEmpty= "Alan boş olamaz.";
     }
 }

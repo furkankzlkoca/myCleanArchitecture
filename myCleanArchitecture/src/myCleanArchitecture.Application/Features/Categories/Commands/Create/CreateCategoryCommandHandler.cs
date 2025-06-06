@@ -1,11 +1,5 @@
-﻿
-
-using AutoMapper;
-using MediatR;
-using myCleanArchitecture.Shared.FeatureModels.Categories;
+﻿using myCleanArchitecture.Shared.FeatureModels.Categories;
 using myCleanArchitecture.Shared.FeatureModels.Categories.Commands;
-
-
 
 namespace myCleanArchitecture.Application.Features.Categories.Commands.Create
 {
@@ -25,6 +19,8 @@ namespace myCleanArchitecture.Application.Features.Categories.Commands.Create
         public async Task<ObjectResult<CategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var model = _mapper.Map<Category>(request);
+            model.Name= model.Name.Trim();
+            model.Description = model.Description?.Trim() ?? string.Empty;
             _categoryRepository.Add(model);
             await _unitOfWork.SaveChangesAsync();
 
