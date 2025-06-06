@@ -14,8 +14,19 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
-    <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Categories\Queries\GetPage\" />
+    <Folder Include="Features\Categories\Queries\GetList\" />
+    <Folder Include="Features\Categories\Queries\GetById\" />
+    <Folder Include="Features\Products\Commands\Create\" />
+    <Folder Include="Features\Products\Commands\Delete\" />
+    <Folder Include="Features\Products\Commands\Update\" />
+    <Folder Include="Features\Products\Queries\GetById\" />
+    <Folder Include="Features\Products\Queries\GetList\" />
+    <Folder Include="Features\Products\Queries\GetPage\" />
   </ItemGroup>
 
 </Project>

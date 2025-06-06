@@ -6,7 +6,7 @@
         {
         }
         public TEntity? Entity { get; set; }
-        public ObjectResult(TEntity entity, Meta meta) : base(meta)
+        public ObjectResult(Meta meta, TEntity entity) : base(meta)
         {
             Entity = entity;
         }

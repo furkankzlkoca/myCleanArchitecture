@@ -1,0 +1,6 @@
+﻿namespace myCleanArchitecture.Application.Features.Categories.Commands.Update
+{
+    public class UpdateCategoryCommandValidator
+    {
+    }
+}
