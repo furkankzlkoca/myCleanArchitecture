@@ -1,17 +1,14 @@
 ﻿
 using FluentValidation;
-using myCleanArchitecture.Domain.Models;
 using myCleanArchitecture.Shared.FeatureModels.Products.Commands;
 
 namespace myCleanArchitecture.Application.Features.Products.Commands.Update
 {
     public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
     {
-        private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public UpdateProductCommandValidator(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public UpdateProductCommandValidator(ICategoryRepository categoryRepository)
         {
-            _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             ApplyValidationsRules();
             ApplyCustomValidationRules();

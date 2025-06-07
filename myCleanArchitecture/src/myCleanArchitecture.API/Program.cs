@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using myCleanArchitecture.API.Middleware;
 using myCleanArchitecture.Application;
 using myCleanArchitecture.Infrastructure;
+using myCleanArchitecture.Shared.Helpers.CustomModels;
+using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +13,15 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -22,13 +34,12 @@ builder.Services.AddSwaggerGen(options =>
 
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "Please enter a valid token",
         Name = "Authorization",
-        //Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
         BearerFormat = "JWT",
-        Scheme = "Bearer"
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "enter your token"
     });
 
     options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
@@ -47,6 +58,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+JWTTokenInit(builder.Services);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -66,6 +78,34 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseExceptionMiddleware();
+
 app.MapControllers();
 
 app.Run();
+
+
+
+void JWTTokenInit(IServiceCollection services)
+{
+    services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+    services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(x =>
+    {
+        x.RefreshOnIssuerKeyNotFound = false;
+        x.SaveToken = false;
+        x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+            ValidateIssuer = false,
+            ValidateLifetime = true,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+}
