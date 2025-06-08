@@ -2,6 +2,7 @@
 
 using myCleanArchitecture.Application.Interfaces.Repositories;
 using myCleanArchitecture.Infrastructure.Context;
+using myCleanArchitecture.Infrastructure.Identity;
 using myCleanArchitecture.Infrastructure.Repositories.Base;
 
 namespace myCleanArchitecture.Infrastructure.Repositories
@@ -13,4 +14,5 @@ namespace myCleanArchitecture.Infrastructure.Repositories
         }
 
     }
+    
 }

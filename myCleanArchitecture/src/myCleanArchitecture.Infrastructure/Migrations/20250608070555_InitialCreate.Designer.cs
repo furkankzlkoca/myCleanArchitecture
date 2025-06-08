@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myCleanArchitecture.Infrastructure.Context;
 
-
 #nullable disable
 
 namespace myCleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250604171823_InitialCreate")]
+    [Migration("20250608070555_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -48,6 +47,13 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -56,9 +62,13 @@ namespace myCleanArchitecture.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Category");
 
@@ -68,6 +78,7 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                             Id = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
                             Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
                             CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
+                            IsActive = true,
                             Name = "Electronics"
                         },
                         new
@@ -75,6 +86,7 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                             Id = new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"),
                             Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
                             CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
+                            IsActive = true,
                             Name = "Books"
                         });
                 });
@@ -101,6 +113,10 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -109,11 +125,20 @@ namespace myCleanArchitecture.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Product");
 
@@ -124,7 +149,9 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                             CategoryId = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
                             Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
                             CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
-                            Name = "Laptop"
+                            Name = "Laptop",
+                            Price = 999.9m,
+                            StockQuantity = 150
                         },
                         new
                         {
@@ -132,7 +159,9 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                             CategoryId = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
                             Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
                             CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
-                            Name = "Smartphone"
+                            Name = "Smartphone",
+                            Price = 1200m,
+                            StockQuantity = 200
                         },
                         new
                         {
@@ -140,7 +169,9 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                             CategoryId = new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"),
                             Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
                             CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
-                            Name = "C# Programming Book"
+                            Name = "C# Programming Book",
+                            Price = 25m,
+                            StockQuantity = 225
                         });
                 });
 
@@ -379,7 +410,7 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     b.HasOne("myCleanArchitecture.Domain.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");

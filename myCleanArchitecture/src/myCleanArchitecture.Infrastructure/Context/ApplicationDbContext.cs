@@ -12,6 +12,8 @@ namespace myCleanArchitecture.Infrastructure.Context
         public DbSet<Category> Category => Set<Category>();
 
         public DbSet<Product> Product => Set<Product>();
+        //public DbSet<RefreshToken> RefreshToken { get; set; } = null;
+        public DbSet<RefreshToken> RefreshToken { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
