@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myCleanArchitecture.API", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myCleanArchitecture.Shared", "src\myCleanArchitecture.Shared\myCleanArchitecture.Shared.csproj", "{A55BC129-FBFC-4B27-A401-1BE0F86DE0CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-BlazorUI", "5-BlazorUI", "{B023162F-FD32-4BD0-AB58-B58CEC26FFC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myCleanArchitecture.UI", "myCleanArchitecture.UI\myCleanArchitecture.UI.csproj", "{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,10 @@ Global
 		{A55BC129-FBFC-4B27-A401-1BE0F86DE0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A55BC129-FBFC-4B27-A401-1BE0F86DE0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A55BC129-FBFC-4B27-A401-1BE0F86DE0CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +73,8 @@ Global
 		{BFE1FE62-7324-444A-A0FA-0990C123BB89} = {62D64C37-772B-4ABF-8719-DDC49C810457}
 		{C7C04A21-E608-4D77-8660-A7336DBF5698} = {81E8BE72-FF92-456E-A9CD-6CB7A4E6B8CB}
 		{A55BC129-FBFC-4B27-A401-1BE0F86DE0CB} = {9F055DE2-CCBA-453A-A8F2-B9C572E17743}
+		{B023162F-FD32-4BD0-AB58-B58CEC26FFC0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{00E23C76-0B51-4E5C-BABE-6F767FB2BBF8} = {B023162F-FD32-4BD0-AB58-B58CEC26FFC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1910106-7B55-4F09-ADF1-F30ECD99AC38}
