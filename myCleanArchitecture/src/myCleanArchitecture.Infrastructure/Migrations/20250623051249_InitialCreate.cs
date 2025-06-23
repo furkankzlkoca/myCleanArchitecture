@@ -59,13 +59,7 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,13 +181,7 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,11 +206,11 @@ namespace myCleanArchitecture.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "Description", "IsActive", "LastModified", "LastModifiedBy", "Name" },
+                columns: new[] { "Id", "Description", "IsActive", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"), new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified), "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a", null, null, null, true, null, null, "Books" },
-                    { new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified), "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a", null, null, null, true, null, null, "Electronics" }
+                    { new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"), null, true, "Books" },
+                    { new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), null, true, "Electronics" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,12 +220,12 @@ namespace myCleanArchitecture.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "Id", "CategoryId", "Created", "CreatedBy", "Deleted", "DeletedBy", "Description", "LastModified", "LastModifiedBy", "Name", "Price", "StockQuantity" },
+                columns: new[] { "Id", "CategoryId", "Description", "Name", "Price", "StockQuantity" },
                 values: new object[,]
                 {
-                    { new Guid("329fefe4-b1a0-43a9-9e0c-3cea070e1d65"), new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"), new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified), "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a", null, null, null, null, null, "C# Programming Book", 25m, 225 },
-                    { new Guid("99b8f183-6ca5-4347-90b0-a6f30957902f"), new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified), "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a", null, null, null, null, null, "Laptop", 999.9m, 150 },
-                    { new Guid("ed3b1792-7654-4f96-bc53-6e5397413ac0"), new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified), "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a", null, null, null, null, null, "Smartphone", 1200m, 200 }
+                    { new Guid("329fefe4-b1a0-43a9-9e0c-3cea070e1d65"), new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"), null, "C# Programming Book", 25m, 225 },
+                    { new Guid("99b8f183-6ca5-4347-90b0-a6f30957902f"), new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), null, "Laptop", 999.9m, 150 },
+                    { new Guid("ed3b1792-7654-4f96-bc53-6e5397413ac0"), new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"), null, "Smartphone", 1200m, 200 }
                 });
 
             migrationBuilder.CreateIndex(

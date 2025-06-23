@@ -30,7 +30,6 @@ namespace myCleanArchitecture.Infrastructure
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

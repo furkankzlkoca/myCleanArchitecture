@@ -12,7 +12,7 @@ using myCleanArchitecture.Infrastructure.Context;
 namespace myCleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250608070555_InitialCreate")]
+    [Migration("20250623051249_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,31 +34,12 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Deleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -76,16 +57,12 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
-                            Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
-                            CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
                             IsActive = true,
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"),
-                            Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
-                            CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
                             IsActive = true,
                             Name = "Books"
                         });
@@ -100,28 +77,9 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Deleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -147,8 +105,6 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                         {
                             Id = new Guid("99b8f183-6ca5-4347-90b0-a6f30957902f"),
                             CategoryId = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
-                            Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
-                            CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
                             Name = "Laptop",
                             Price = 999.9m,
                             StockQuantity = 150
@@ -157,8 +113,6 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                         {
                             Id = new Guid("ed3b1792-7654-4f96-bc53-6e5397413ac0"),
                             CategoryId = new Guid("f96e3fd7-e977-47bc-b915-f8fdab4981eb"),
-                            Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
-                            CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
                             Name = "Smartphone",
                             Price = 1200m,
                             StockQuantity = 200
@@ -167,8 +121,6 @@ namespace myCleanArchitecture.Infrastructure.Migrations
                         {
                             Id = new Guid("329fefe4-b1a0-43a9-9e0c-3cea070e1d65"),
                             CategoryId = new Guid("85c86b71-6777-46f3-88af-eac6f0082e1e"),
-                            Created = new DateTime(2025, 6, 4, 16, 29, 17, 730, DateTimeKind.Unspecified),
-                            CreatedBy = "dc142e5c-fc4f-43a2-9d44-34a1fb3d5a7a",
                             Name = "C# Programming Book",
                             Price = 25m,
                             StockQuantity = 225

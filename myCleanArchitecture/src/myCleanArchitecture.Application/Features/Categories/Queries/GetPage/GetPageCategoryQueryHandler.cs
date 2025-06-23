@@ -26,10 +26,6 @@ namespace myCleanArchitecture.Application.Features.Categories.Queries.GetPage
             if (request.IsActive is not null)
                 pre.And(x => x.IsActive == request.IsActive);
 
-            if (request.StartDate is not null)
-                pre.And(x => x.Created >= request.StartDate);
-            if (request.EndDate is not null)
-                pre.And(x => x.Created <= request.EndDate.Value.AddDays(1).AddTicks(-1));
 
             return _mapper.Map<PagingResult<CategoryDto>>(await _categoryRepository.GetPagingResultAsync(request.PagingParameters, pre));
         }
