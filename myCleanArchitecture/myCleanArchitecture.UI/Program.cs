@@ -1,9 +1,24 @@
 using myCleanArchitecture.UI.Components;
+using myCleanArchitecture.UI.Services;
+using myCleanArchitecture.UI.Services.Base;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
+
+builder.Services.AddHttpClient<IHttpClientHelper, HttpClientHelper>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["BaseURL"] ?? throw new InvalidOperationException("BaseURL is not configured."));
+});
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

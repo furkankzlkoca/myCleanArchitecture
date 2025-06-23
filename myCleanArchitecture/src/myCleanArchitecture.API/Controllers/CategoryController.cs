@@ -9,7 +9,6 @@ using myCleanArchitecture.Shared.Results;
 
 namespace myCleanArchitecture.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CategoryController : ControllerBase

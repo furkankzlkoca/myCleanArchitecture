@@ -1,7 +1,59 @@
 ﻿@page "/"
+@using myCleanArchitecture.Shared.FeatureModels.Products
+@using myCleanArchitecture.UI.Services
+@inject IProductService _productService;
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+
+<h1>Products</h1>
+
+@if (productDtos is not null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>StockQuantity</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in productDtos)
+            {
+                <tr>
+                    <td></td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>@item.StockQuantity</td>
+                    <td>@item?.Category?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Product is null</h3>
+}
+
+
+
+@code {
+    private List<ProductDto>? productDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var res = await _productService.GetAll();
+        if (res.Meta.IsSuccess)
+            productDtos = res.Entities;
+    }
+}
