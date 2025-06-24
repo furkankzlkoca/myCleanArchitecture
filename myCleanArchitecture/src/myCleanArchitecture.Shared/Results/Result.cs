@@ -2,6 +2,10 @@
 {
     public class Result
     {
+        public Result()
+        {
+            
+        }
         public Result(Meta meta)
         {
             Meta = meta;

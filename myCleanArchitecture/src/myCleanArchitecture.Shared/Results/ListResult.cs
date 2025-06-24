@@ -2,6 +2,10 @@
 {
     public class ListResult<TEntity>:Result
     {
+        public ListResult()
+        {
+            
+        }
         public ListResult(Meta meta) : base(meta)
         {
         }

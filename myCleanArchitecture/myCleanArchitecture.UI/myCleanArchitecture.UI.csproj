@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Shared\" />
     <Folder Include="Utilities\" />
     <Folder Include="Profiles\" />
+    <Folder Include="Utility\Validation\" />
+    <Folder Include="Utility\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

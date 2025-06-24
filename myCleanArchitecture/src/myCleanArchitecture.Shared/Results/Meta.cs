@@ -4,6 +4,10 @@ namespace myCleanArchitecture.Shared.Results
 {
     public class Meta
     {
+        public Meta()
+        {
+                
+        }
         public Meta(bool ısSuccess, string message, HttpStatusCode statusCode)
         {
             IsSuccess = ısSuccess;

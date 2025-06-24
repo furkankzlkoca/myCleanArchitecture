@@ -2,6 +2,10 @@
 {
     public class ObjectResult<TEntity> : Result
     {
+        public ObjectResult()
+        {
+            
+        }
         public ObjectResult(Meta meta) : base(meta)
         {
         }
