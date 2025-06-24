@@ -1,0 +1,125 @@
+﻿// ProductEdit.razor
+@page "/products/new"
+@page "/products/edit/{Id:int}"
+@using myCleanArchitecture.Shared.FeatureModels.Categories
+@using myCleanArchitecture.Shared.FeatureModels.Products
+@using myCleanArchitecture.Shared.FeatureModels.Products.Commands
+@using myCleanArchitecture.UI.Services
+@inject IProductService ProductService
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<PageTitle>@(IsEditMode ? "Edit Product" : "New Product")</PageTitle>
+
+<h1>@(IsEditMode ? "Edit Product" : "Create New Product")</h1>
+
+@if (categories == null)
+{
+    <p>Loading categories...</p>
+}
+else
+{
+    <EditForm Model="@productModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <InputText id="name" class="form-control" @bind-Value="productModel.Name" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <InputTextArea id="description" class="form-control" @bind-Value="productModel.Description" />
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <InputNumber id="price" class="form-control" @bind-Value="productModel.Price" />
+        </div>
+
+        <div class="form-group">
+            <label for="stock">Stock Quantity</label>
+            <InputNumber id="stock" class="form-control" @bind-Value="productModel.StockQuantity" />
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <InputSelect id="category" class="form-control" @bind-Value="productModel.CategoryId">
+                <option value="">Select Category</option>
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/products" class="btn btn-secondary">Cancel</a>
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    private bool IsEditMode => Id != Guid.Empty;
+    private CreateProductCommand productModel = new();
+    private List<CategoryDto> categories = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var categoriesResult = await CategoryService.GetAll();
+        if (categoriesResult.Meta.IsSuccess)
+        {
+            categories = categoriesResult.Entities ?? new();
+        }
+
+        if (IsEditMode)
+        {
+            var productResult = await ProductService.Get(Id);
+            if (productResult.Meta.IsSuccess && productResult.Entity != null)
+            {
+                productModel = new CreateProductCommand
+                {
+                    Name = productResult.Entity.Name,
+                    Description = productResult.Entity.Description,
+                    Price = productResult.Entity.Price,
+                    StockQuantity = productResult.Entity.StockQuantity,
+                    CategoryId = productResult.Entity.CategoryId
+                };
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (IsEditMode)
+        {
+            var updateCommand = new UpdateProductCommand
+            {
+                Id = Id,
+                Name = productModel.Name,
+                Description = productModel.Description,
+                Price = productModel.Price,
+                StockQuantity = productModel.StockQuantity,
+                CategoryId = productModel.CategoryId
+            };
+
+            var result = await ProductService.Update(updateCommand);
+            if (result.Meta.IsSuccess)
+            {
+                NavigationManager.NavigateTo("/products");
+            }
+        }
+        else
+        {
+            var result = await ProductService.Create(productModel);
+            if (result.Meta.IsSuccess)
+            {
+                NavigationManager.NavigateTo("/products");
+            }
+        }
+    }
+}

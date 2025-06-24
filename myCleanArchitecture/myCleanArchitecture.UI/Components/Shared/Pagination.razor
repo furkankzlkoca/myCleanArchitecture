@@ -1,0 +1,49 @@
+﻿// Pagination.razor
+@using myCleanArchitecture.Shared.Results
+
+<div class="pagination">
+    @if (TotalPages > 1)
+    {
+        <ul class="pagination">
+            @if (CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => OnPageChanged.InvokeAsync(1)">First</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => OnPageChanged.InvokeAsync(CurrentPage - 1)">Previous</button>
+                </li>
+            }
+
+            @for (int i = StartPage; i <= EndPage; i++)
+            {
+                var pageNumber = i;
+                <li class="page-item @(pageNumber == CurrentPage ? "active" : "")">
+                    <button class="page-link" @onclick="() => OnPageChanged.InvokeAsync(pageNumber)">@pageNumber</button>
+                </li>
+            }
+
+            @if (CurrentPage < TotalPages)
+            {
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => OnPageChanged.InvokeAsync(CurrentPage + 1)">Next</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" @onclick="() => OnPageChanged.InvokeAsync(TotalPages)">Last</button>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@code {
+    [Parameter] public int CurrentPage { get; set; } = 1;
+    [Parameter] public int PageSize { get; set; } = 10;
+    [Parameter] public int TotalCount { get; set; }
+    [Parameter] public EventCallback<int> OnPageChanged { get; set; }
+
+    private int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
+    private int MaxVisiblePages = 5;
+    private int StartPage => Math.Max(1, CurrentPage - (MaxVisiblePages / 2));
+    private int EndPage => Math.Min(TotalPages, StartPage + MaxVisiblePages - 1);
+}

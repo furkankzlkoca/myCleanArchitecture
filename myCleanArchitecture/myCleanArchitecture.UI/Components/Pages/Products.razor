@@ -1,0 +1,119 @@
+﻿@page "/products"
+@page "/products/{Page:int}"
+@using myCleanArchitecture.Shared.FeatureModels.Products
+@using myCleanArchitecture.Shared.FeatureModels.Products.Queries
+@using myCleanArchitecture.Shared.Results
+@using myCleanArchitecture.UI.Services
+@inject IProductService _productService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Products</PageTitle>
+
+<h1>Products</h1>
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/products/new">Add New Product</a>
+</div>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!products.Any())
+{
+    <p>No products found</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.StockQuantity</td>
+                    <td>@product.Category?.Name</td>
+                    <td>
+                        <a href="/products/edit/@product.Id" class="btn btn-sm btn-info">Edit</a>
+                        <button @onclick="() => DeleteProduct(product.Id!.Value)" class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*    
+    <Pagination 
+    CurrentPage="@currentPage"
+    PageSize="@pageSize"
+    TotalCount="@totalCount"
+    OnPageChanged="@(EventCallback.Factory.Create<int>(this, page => NavigateToPage(page)))" /> *@
+
+    <Pagination CurrentPage="@currentPage"
+                PageSize="@pageSize"
+                TotalCount="@totalCount"
+                OnPageChanged="NavigateToPage" />
+}
+
+@code {
+    [Parameter] public int Page { get; set; } = 1;
+
+    private List<ProductDto> products = new();
+    private int currentPage = 1;
+    private int pageSize = 10;
+    private int totalCount;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Page < 1) Page = 1;
+        currentPage = Page;
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        var filter = new ProductPageQuery
+        {
+            PagingParameters = new PagingParameters()
+            {
+                Page = currentPage,
+                PageSize = pageSize
+            }
+        };
+
+        var result = await _productService.GetPage(filter);
+
+        if (result.Meta.IsSuccess)
+        {
+            products = result.Entities;
+            totalCount = result.PagingParameters.TotalCount ?? 0;
+        }
+    }
+
+    private async Task DeleteProduct(Guid id)
+    {
+        var result = await _productService.Delete(id);
+        if (result.Meta.IsSuccess)
+        {
+            await LoadProducts();
+        }
+    }
+
+    private void NavigateToPage(int page)
+    {
+        NavigationManager.NavigateTo($"/products/{page}");
+        // For categories: NavigationManager.NavigateTo($"/categories/{page}");
+    }
+}

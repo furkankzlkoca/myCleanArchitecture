@@ -5,31 +5,29 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-
 <h1>Products</h1>
 
 @if (productDtos is not null)
 {
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>StockQuantity</th>
-                <th>Category</th>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">StockQuantity</th>
+                <th scope="col">Category</th>
             </tr>
         </thead>
         <tbody>
+            @{
+                int rowNo = 0;
+            }
             @foreach (var item in productDtos)
             {
                 <tr>
-                    <td></td>
+                    <td scope="row">@(++rowNo)</td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>@item.Price</td>
