@@ -54,13 +54,6 @@ else
         </tbody>
     </table>
 
-    @*    
-    <Pagination 
-    CurrentPage="@currentPage"
-    PageSize="@pageSize"
-    TotalCount="@totalCount"
-    OnPageChanged="@(EventCallback.Factory.Create<int>(this, page => NavigateToPage(page)))" /> *@
-
     <Pagination CurrentPage="@currentPage"
                 PageSize="@pageSize"
                 TotalCount="@totalCount"

@@ -11,15 +11,6 @@ namespace myCleanArchitecture.Infrastructure.Repositories
         public CategoryRepository(ApplicationDbContext context) : base(context)
         {
         }
-
-        public async Task<bool> IsNameExist(string name)
-        {
-            return await AnyAsync(c => c.Name == name );
-        }
-
-        public async Task<bool> IsNameExist(string name, Guid id)
-        {
-            return await AnyAsync(c => c.Name == name && c.Id != id);
-        }
+       
     }
 }

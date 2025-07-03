@@ -3,7 +3,7 @@ using myCleanArchitecture.Shared.FeatureModels.Categories.Commands;
 
 namespace myCleanArchitecture.Application.Features.Categories.Commands.Update
 {
-    public class UpdateCategoryCommandValidator:AbstractValidator<UpdateCategoryCommand>
+    public class UpdateCategoryCommandValidator : AbstractValidator<UpdateCategoryCommand>
     {
         private readonly ICategoryRepository _categoryRepository;
         public UpdateCategoryCommandValidator(ICategoryRepository categoryRepository)
@@ -23,7 +23,7 @@ namespace myCleanArchitecture.Application.Features.Categories.Commands.Update
         private void ApplyCustomValidationRules()
         {
             RuleFor(x => x)
-                .MustAsync(async (category, cancellation) => !await _categoryRepository.IsNameExist(category.Name, category.Id))
+                .MustAsync(async (category, cancellation) => !await _categoryRepository.AnyAsync(x => x.Name == category.Name && x.Id != category.Id))
                 .WithMessage("Kategori ismi mevcuttur.");
         }
     }

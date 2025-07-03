@@ -25,16 +25,16 @@ namespace myCleanArchitecture.Infrastructure.Services
             if (claimPrincipal is null)
                 throw new UnauthorizedAccessException();
 
-            var userIdClaim = claimPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = claimPrincipal.FindFirst(CustomClaimTypes.UserId)?.Value;
             if (userIdClaim is null)
                 throw new UnauthorizedAccessException();
 
             CurrentUserDto currentUserDto = new()
             {
                 UserId = userIdClaim,
-                Username = claimPrincipal.FindFirst(ClaimTypes.Name)?.Value,
-                Email = claimPrincipal.FindFirst(ClaimTypes.Email).Value,
-                Fullname = claimPrincipal.FindFirst("fullname").Value
+                Username = claimPrincipal.FindFirst(CustomClaimTypes.Username)?.Value ?? string.Empty,
+                Email = claimPrincipal.FindFirst(CustomClaimTypes.Email)?.Value ?? string.Empty,
+                Fullname = claimPrincipal.FindFirst(CustomClaimTypes.FullName)?.Value ?? string.Empty
             };
             return currentUserDto;
         }

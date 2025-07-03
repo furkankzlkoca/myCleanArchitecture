@@ -24,7 +24,7 @@ namespace myCleanArchitecture.Application.Features.Categories.Commands.Create
         private void ApplyCustomValidationRules()
         {
             RuleFor(x => x)
-                .MustAsync(async (category, cancellation) => !await _categoryRepository.IsNameExist(category.Name))
+                .MustAsync(async (category, cancellation) => !await _categoryRepository.AnyAsync(x => x.Name == category.Name))
                 .WithMessage("Kategori ismi mevcuttur.");
         }
     }
