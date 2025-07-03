@@ -1,0 +1,20 @@
+﻿
+<button type="button" class="btn btn-secondary" @onclick="OnCustomEditButtonClick">
+    @ButtonText
+</button>
+
+
+@code {
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    [Parameter]
+    public string ButtonText { get; set; } = default!;
+
+    [Parameter]
+    public string TargetUrl { get; set; } = default!;
+
+    private void OnCustomEditButtonClick()
+    {
+        NavigationManager.NavigateTo(TargetUrl);
+    }
+}

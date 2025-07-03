@@ -46,6 +46,8 @@ else
                     <td>@product.StockQuantity</td>
                     <td>@product.Category?.Name</td>
                     <td>
+                        <CustomEditButtonComponent ButtonText="Güncelleme"
+                                                   TargetUrl="@($"/products/edit/{@product.Id}")"></CustomEditButtonComponent>
                         <a href="/products/edit/@product.Id" class="btn btn-sm btn-info">Edit</a>
                         <button @onclick="() => DeleteProduct(product.Id!.Value)" class="btn btn-sm btn-danger">Delete</button>
                     </td>
@@ -107,6 +109,5 @@ else
     private void NavigateToPage(int page)
     {
         NavigationManager.NavigateTo($"/products/{page}");
-        // For categories: NavigationManager.NavigateTo($"/categories/{page}");
     }
 }

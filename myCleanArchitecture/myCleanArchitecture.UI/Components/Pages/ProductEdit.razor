@@ -1,6 +1,6 @@
 ﻿// ProductEdit.razor
 @page "/products/new"
-@page "/products/edit/{Id:int}"
+@page "/products/edit/{Id}"
 @using myCleanArchitecture.Shared.FeatureModels.Categories
 @using myCleanArchitecture.Shared.FeatureModels.Products
 @using myCleanArchitecture.Shared.FeatureModels.Products.Commands
@@ -62,9 +62,10 @@ else
 }
 
 @code {
-    [Parameter] public Guid Id { get; set; }
+    [Parameter] public string Id { get; set; }
 
-    private bool IsEditMode => Id != Guid.Empty;
+    private Guid Id2 => Guid.Parse(Id);
+    private bool IsEditMode => Id2 != Guid.Empty;
     private CreateProductCommand productModel = new();
     private List<CategoryDto> categories = new();
 
@@ -78,7 +79,7 @@ else
 
         if (IsEditMode)
         {
-            var productResult = await ProductService.Get(Id);
+            var productResult = await ProductService.Get(Id2);
             if (productResult.Meta.IsSuccess && productResult.Entity != null)
             {
                 productModel = new CreateProductCommand
@@ -99,7 +100,7 @@ else
         {
             var updateCommand = new UpdateProductCommand
             {
-                Id = Id,
+                Id = Id2,
                 Name = productModel.Name,
                 Description = productModel.Description,
                 Price = productModel.Price,
