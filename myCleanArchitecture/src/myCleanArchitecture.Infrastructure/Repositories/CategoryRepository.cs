@@ -6,7 +6,7 @@ using myCleanArchitecture.Infrastructure.Repositories.Base;
 
 namespace myCleanArchitecture.Infrastructure.Repositories
 {
-    internal class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    internal class CategoryRepository : ApplicationBaseRepository<Category>, ICategoryRepository
     {
         public CategoryRepository(ApplicationDbContext context) : base(context)
         {

@@ -20,14 +20,15 @@ namespace myCleanArchitecture.Infrastructure
         {
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"))); // Assuming a "DefaultConnection" in appsettings.json
+            var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new ArgumentNullException("No Connection String was found!");
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString, sql => sql.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
             // TODO: maybe IApplicationDbContext injection remove
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(ApplicationBaseRepository<>));
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 

@@ -1,20 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using myCleanArchitecture.Application.Interfaces.Repositories.Base;
 using myCleanArchitecture.Infrastructure.Context;
 using myCleanArchitecture.Shared.Results;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace myCleanArchitecture.Infrastructure.Repositories.Base
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity, new()
+    internal class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity, TContext>
+        where TEntity : class, IBaseEntity, new()
+        where TContext : DbContext
     {
-        protected readonly ApplicationDbContext _context;
-
-        public BaseRepository(ApplicationDbContext context)
+        
+        protected readonly TContext _context;
+        public BaseRepository(TContext context)
         {
             _context = context;
         }
-
         public TEntity Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
@@ -37,6 +40,11 @@ namespace myCleanArchitecture.Infrastructure.Repositories.Base
             return await _context.Set<TEntity>().FirstOrDefaultAsync(filter);
         }
 
+        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object?>> include)
+        {
+            return await include(_context.Set<TEntity>()).FirstOrDefaultAsync(filter);
+        }
+
         public async Task<TEntity?> GetByIdAsync<T>(T id) where T : struct
         {
             return await _context.Set<TEntity>().FindAsync(id);
@@ -46,6 +54,16 @@ namespace myCleanArchitecture.Infrastructure.Repositories.Base
         {
             var list = filter == null ? _context.Set<TEntity>().AsNoTracking()
                                     : _context.Set<TEntity>().AsNoTracking().Where(filter);
+
+            list = isDesc ? list.OrderByDescending(orderBy) : list.OrderBy(orderBy);
+            return await list.ToListAsync();
+        }
+        public async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? filter, Expression<Func<TEntity, object>> orderBy, bool isDesc, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object?>> include)
+        {
+            var list = filter == null ? _context.Set<TEntity>().AsNoTracking()
+                                    : _context.Set<TEntity>().AsNoTracking().Where(filter);
+            
+            list = include(list);
 
             list = isDesc ? list.OrderByDescending(orderBy) : list.OrderBy(orderBy);
             return await list.ToListAsync();
