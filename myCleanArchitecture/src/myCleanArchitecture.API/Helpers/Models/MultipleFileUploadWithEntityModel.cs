@@ -9,7 +9,7 @@ namespace myCleanArchitecture.API.Helpers.Models
         public List<IFormFile>? Files { get; set; }
 
         [FromForm(Name = "entity")]
-        public string EntityJson { get; set; }
+        public string EntityJson { get; set; } = default!;
         public TEntity Entity => JsonConvert.DeserializeObject<TEntity>(EntityJson) ?? throw new ArgumentNullException(nameof(EntityJson), "Entity cannot be null.");
         // TODO: check if the entity is null after deserialization and handle it accordingly
     }

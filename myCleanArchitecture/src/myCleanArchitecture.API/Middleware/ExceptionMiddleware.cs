@@ -23,16 +23,7 @@ namespace myCleanArchitecture.API.Middleware
             }
         }
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            //context.Response.ContentType = "application/json";
-            //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //var result = new
-            //{
-            //    StatusCode = context.Response.StatusCode,
-            //    Message = "An unexpected error occurred.",
-            //    Detail = exception.Message
-            //};
-            //return context.Response.WriteAsJsonAsync(result);
+        {            
             HttpResponse response = context.Response;
             response.ContentType = "application/json";
             Result customResult;

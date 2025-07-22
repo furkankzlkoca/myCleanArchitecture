@@ -62,7 +62,7 @@ namespace myCleanArchitecture.Infrastructure.Repositories.Base
             var type = typeof(TEntity);
             if (!_repositories.ContainsKey(type))
             {
-                var repository = new BaseRepository<TEntity>(_context);
+                var repository = new ApplicationBaseRepository<TEntity>(_context);
                 _repositories.Add(type, repository);
             }
             return (IBaseRepository<TEntity>)_repositories[type];
